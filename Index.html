@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ritwal — Coffee</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  
+  <link rel="icon" href="logo/ritwallogo.png" type="image/png" />
+
+</head>
+<body>
+  <div class="topbar"><small>Ritwal.cafe</small></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="logo-wrap" aria-hidden="true">
+        <center>
+        <img src="logo/ritwallogo.png" alt="Ritwal Coffee Logo" class="logo-img" />
+        </center>
+      </div>
+      <h1 class="brand">Ritwal</h1>
+      <p class="lead">Because great coffee is the start of something even greater.</p>
+      <div class="hero-cta">
+        <a href="#about-section" class="btn">Explore Menu</a>
+        <a href="#location-section" class="btn transparent">Our Locations</a>
+        <a href="#menu-order" class="btn">Order Now!</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="thick-sep" aria-hidden="true"></div>
+
+  <!-- About -->
+  <section id="about-section" class="about animate-on-scroll" aria-labelledby="about-title">
+    <div class="about-card about-left">
+      <h2 id="about-title">Ritwal Coffee?</h2>
+      <p>From humble beginnings, Ritwal Coffee became a staple within the University of St. La Salle community — not just as a café, but as a daily Ritwal.</p>
+      <div class="features" role="list">
+        <div class="feature" role="listitem"><div class="icon-circle">☕</div><div><strong>Great Coffee,</strong><div>Tasty Sips</div></div></div>
+        <div class="feature" role="listitem"><div class="icon-circle">❤</div><div><strong>Affordable</strong></div></div>
+        <div class="feature" role="listitem"><div class="icon-circle">⚡</div><div><strong>Speedy Service</strong><div>with a Smile</div></div></div>
+        <div class="feature" role="listitem"><div class="icon-circle">🌿</div><div><strong>Local &</strong><div>Sustainable</div></div></div>
+      </div>
+    </div>
+
+    <div class="about-right">
+      <div class="about-img">
+        <div class="animation-container">
+          <img src="coffee/latte.png" alt="Iced Spanish Latte" />
+          <img src="coffee/matcha1.png" alt="Iced Matcha" />
+          <img src="coffee/Strawberry.png" alt="Strawberry Latte" />
+          <img src="coffee/matcha.png" alt="Matcha Latte" />
+          <img src="coffee/Americano.png" alt="Americano" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section id="location-section" class="location-wrap animate-on-scroll">
+    <div class="location-inner">
+      <div class="map-frame">
+        <iframe
+          id="mapFrame"
+          width="100%"
+          height="450"
+          style="border: 0; border-radius: 12px"
+          loading="lazy"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.4969905228725!2d122.95844581477291!3d10.680559379498298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aed18e98535d85%3A0xc3476691b4864e2d!2sRitwal%20Cafe%20-%20Courtyard!5e0!3m2!1sen!2sph!4v1697315761234!5m2!1sen!2sph">
+        </iframe>
+      </div>
+
+      <div class="loc-cards">
+        <div class="loc-card">
+          <small style="opacity:.7">Ritwal</small>
+          <h3 style="margin:6px 0">University Courtyard</h3>
+          <p style="margin:0">Open daily: 7AM — 8PM</p>
+          <!-- MODIFIED: Reverted to use changeMap() function -->
+          <button class="get-btn" onclick="changeMap('Ritual')">Get Directions</button>
+        </div>
+        <div class="loc-card">
+          <small style="opacity:.7">Ritwal</small>
+          <h3 style="margin:6px 0">Puerta Nueve Food Station (Beside USLS Gate 9)</h3>
+          <p style="margin:0">Open daily: 8AM — 6PM</p>
+          <!-- MODIFIED: Reverted to use changeMap() function -->
+          <button class="get-btn" onclick="changeMap('puerta')">Get Directions</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products / Slider -->
+   <section id="menu-order" class="menu-order animate-on-scroll"></section>
+  <section class="products-slider-wrap" style="background: var(--mint); padding: 56px 0; overflow: hidden">
+    <div style="max-width: 1200px; margin: 0 auto 22px; text-align: center; padding: 0 20px">
+      <h2 style="font-family:'Abril Fatface',serif; margin:0; font-size:36px">Our Products</h2>
+      <p style="margin:6px 0 0; opacity:.9">Local go-to's everyone loves — handpicked and always fresh.</p>
+    </div>
+
+    <div class="carousel">
+      <div class="list">
+        <!-- Item: Spanish Latte -->
+        <div class="item">
+          <img src="coffee/latte.png" alt="Spanish Latte" />
+          <div class="introduce">
+            <div class="title">RITWAL'S BEST</div>
+            <div class="topic">Spanish Latte</div>
+            <div class="des">₱ 85</div>
+            <button class="seeMore">SEE MORE ↗</button>
+          </div>
+          <div class="detail" data-name="Spanish Latte" data-price="85">
+            <div class="title">Spanish Latte</div>
+            <div class="des">A perfect blend of rich espresso and creamy milk, served over ice. Simple, classic, and delicious.</div>
+            <div class="specifications">
+              <div><p>Price</p><p>₱ 85</p></div>
+              <div><p>Type</p><p>Coffee</p></div>
+              <div><p>Served</p><p>Iced</p></div>
+            </div>
+            <div class="grab-checkout-panel">
+              <button class="order-with-grab-btn">
+                <img src="logo/grab.png" alt="Grab Logo" class="grab-logo-inline" /> Order with Grab
+              </button>
+              <div class="order-panel">
+                <div class="quantity-selector">
+                  <button class="quantity-btn quantity-minus" disabled>–</button>
+                  <span class="quantity-display">1</span>
+                  <button class="quantity-btn quantity-plus">+</button>
+                </div>
+                <button class="add-to-cart-btn">
+                  <span>Add to Basket</span>
+                  <span class="item-total">₱ 85</span>
+                </button>
+              </div>
+
+            </div>
+                          
+          </div>
+        </div>
+
+        <!-- Item: Iced Americano -->
+        <div class="item">
+          <img src="coffee/Americano.png" alt="Iced Americano" />
+          <div class="introduce">
+            <div class="title">RITWAL'S BEST</div>
+            <div class="topic">Iced Americano</div>
+            <div class="des">₱ 75</div>
+            <button class="seeMore">SEE MORE ↗</button>
+          </div>
+          <div class="detail" data-name="Iced Americano" data-price="75">
+            <div class="title">Iced Americano</div>
+            <div class="des">Classic iced Americano, strong and refreshing, served over ice.</div>
+            <div class="specifications">
+              <div><p>Price</p><p>₱ 75</p></div>
+              <div><p>Type</p><p>Coffee</p></div>
+              <div><p>Served</p><p>Iced</p></div>
+            </div>
+            <div class="grab-checkout-panel">
+              <button class="order-with-grab-btn">
+                <img src="logo/grab.png" alt="Grab Logo" class="grab-logo-inline" /> Order with Grab
+              </button>
+              <div class="order-panel">
+                <div class="quantity-selector">
+                  <button class="quantity-btn quantity-minus" disabled>–</button>
+                  <span class="quantity-display">1</span>
+                  <button class="quantity-btn quantity-plus">+</button>
+                </div>
+                <button class="add-to-cart-btn">
+                  <span>Add to Basket</span>
+                  <span class="item-total">₱ 75</span>
+                </button>
+              </div>
+            </div>
+               
+          </div>
+        </div>
+
+        <!-- Item: Iced Matcha -->
+        <div class="item">
+          <img src="coffee/matcha1.png" alt="Iced Matcha" />
+          <div class="introduce">
+            <div class="title">RITWAL'S BEST</div>
+            <div class="topic">Iced Matcha</div>
+            <div class="des">₱ 95</div>
+            <button class="seeMore">SEE MORE ↗</button>
+          </div>
+          <div class="detail" data-name="Iced Matcha" data-price="95">
+            <div class="title">Iced Matcha</div>
+            <div class="des">A vibrant and earthy iced matcha latte, a perfect non-coffee treat.</div>
+            <div class="specifications">
+              <div><p>Price</p><p>₱ 95</p></div>
+              <div><p>Type</p><p>Non-Coffee</p></div>
+              <div><p>Served</p><p>Iced</p></div>
+            </div>
+            <div class="grab-checkout-panel">
+              <button class="order-with-grab-btn">
+                <img src="logo/grab.png" alt="Grab Logo" class="grab-logo-inline" /> Order with Grab
+              </button>
+              <div class="order-panel">
+                <div class="quantity-selector">
+                  <button class="quantity-btn quantity-minus" disabled>–</button>
+                  <span class="quantity-display">1</span>
+                  <button class="quantity-btn quantity-plus">+</button>
+                </div>
+                <button class="add-to-cart-btn">
+                  <span>Add to Basket</span>
+                  <span class="item-total">₱ 95</span>
+                </button>
+              </div>
+            </div>
+                
+          </div>
+        </div>
+
+        <!-- Item: Matcha Milk -->
+        <div class="item">
+          <img src="coffee/matcha.png" alt="Matcha Milk" />
+          <div class="introduce">
+            <div class="title">RITWAL'S BEST</div>
+            <div class="topic">Matcha Milk</div>
+            <div class="des">₱ 90</div>
+            <button class="seeMore">SEE MORE ↗</button>
+          </div>
+          <div class="detail" data-name="Matcha Milk" data-price="90">
+            <div class="title">Matcha Milk</div>
+            <div class="des">A smooth and creamy matcha milk — comforting and non-coffee.</div>
+            <div class="specifications">
+              <div><p>Price</p><p>₱ 90</p></div>
+              <div><p>Type</p><p>Non-Coffee</p></div>
+              <div><p>Served</p><p>Iced</p></div>
+            </div>
+            <div class="grab-checkout-panel">
+              <button class="order-with-grab-btn">
+                <img src="logo/grab.png" alt="Grab Logo" class="grab-logo-inline" /> Order with Grab
+              </button>
+              <div class="order-panel">
+                <div class="quantity-selector">
+                  <button class="quantity-btn quantity-minus" disabled>–</button>
+                  <span class="quantity-display">1</span>
+                  <button class="quantity-btn quantity-plus">+</button>
+                </div>
+                <button class="add-to-cart-btn">
+                  <span>Add to Basket</span>
+                  <span class="item-total">₱ 90</span>
+                </button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- Item: Strawberry Latte -->
+        <div class="item">
+          <img src="coffee/Strawberry.png" alt="Strawberry Latte" />
+          <div class="introduce">
+            <div class="title">RITWAL'S BEST</div>
+            <div class="topic">Strawberry Latte</div>
+            <div class="des">₱ 95</div>
+            <button class="seeMore">SEE MORE ↗</button>
+          </div>
+          <div class="detail" data-name="Strawberry Latte" data-price="95">
+            <div class="title">Strawberry Latte</div>
+            <div class="des">Creamy milk layered with real strawberry, lightly sweet and refreshing.</div>
+            <div class="specifications">
+              <div><p>Price</p><p>₱ 95</p></div>
+              <div><p>Type</p><p>Non-Coffee</p></div>
+              <div><p>Served</p><p>Iced</p></div>
+            </div>
+            <div class="grab-checkout-panel">
+              <button class="order-with-grab-btn">
+                <img src="logo/grab.png" alt="Grab Logo" class="grab-logo-inline" /> Order with Grab
+              </button>
+              <div class="order-panel">
+                <div class="quantity-selector">
+                  <button class="quantity-btn quantity-minus" disabled>–</button>
+                  <span class="quantity-display">1</span>
+                  <button class="quantity-btn quantity-plus">+</button>
+                </div>
+                <button class="add-to-cart-btn">
+                  <span>Add to Basket</span>
+                  <span class="item-total">₱ 95</span>
+                </button>
+              </div>
+            </div>
+    
+          </div>
+              
+        </div>
+      </div>
+
+      <div class="arrows">
+        <button id="prev"><</button>
+        <button id="next">></button>
+      </div>
+    </div>
+  </section>
+  </section>
+
+  <!-- Floating Cart Button -->
+  <button id="view-cart-btn">
+    <span id="cart-item-count">0 Items</span>
+    <span>View Basket</span>
+    <span id="cart-total-price">₱ 0</span>
+  </button>
+
+  <!-- Cart Overlay -->
+  <div id="cart-overlay" class="cart-overlay">
+    <div id="cart-modal" class="cart-modal">
+      <div class="cart-header">
+        <h3>Your Basket</h3>
+        <button id="cart-close-btn">×</button>
+      </div>
+      <div id="cart-body" class="cart-body">
+        <p class="cart-empty-msg">Your Basket is empty.</p>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₱ 0</span>
+        </div>
+        <button id="cart-checkout-btn" disabled>Go to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt -->
+  <div id="receipt-overlay" class="receipt-overlay">
+	  <div id="confetti-container"></div>
+    <div id="receipt-modal" class="receipt-modal">
+      <div class="receipt-header">
+        <img src="logo/ritwallogo.png" alt="Ritwal Logo" class="logo-img" />
+        <h3>Ritwal Coffee</h3>
+        <p style="margin:4px 0 0; color:#555;">Thank you for ordering!</p>
+        <img src="https://cdn.worldvectorlogo.com/logos/grab.svg" alt="Grab Logo" class="grab-logo" />
+      </div>
+      <div class="receipt-body">
+        <h4>Order Summary</h4>
+        <div id="receipt-items"></div>
+        <div class="receipt-total">
+          <span>Total Paid</span>
+          <span id="receipt-total-price">₱ 0</span>
+        </div>
+      </div>
+      <div class="receipt-footer">
+        <button id="receipt-close-btn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delivery CTA -->
+  <section class="delivery animate-on-scroll">
+    <h2 style="margin:0">Order now with</h2>
+    <img class="grab" src="https://cdn.worldvectorlogo.com/logos/grab.svg" alt="Grab" />
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="brand-block">
+      <h4>Life Begins After Coffee</h4>
+      <p style="margin:6px 0">09663966205<br />ritwalcoffee@gmail.com</p>
+    </div>
+
+    <nav class="footer-nav">
+      <h5 style="margin:0 0 8px">Main</h5>
+      <ul>
+        <!-- This is the updated link -->
+        <li><a href="aboutus.html" style="text-decoration: none; color: var(--black);">About Us</a></li>
+      </ul>
+    </nav>
+
+   <div class="social-links">
+  <h5 style="margin:0 0 8px">Connect With Us</h5>
+  <ul style="list-style:none; padding:0; margin:0">
+    <li style="display:flex; align-items:center; gap:8px; margin:6px 0">
+      <a href="https://www.facebook.com/ritwal.cafe/" target="_blank" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
+        <img src="https://cdn-icons-png.flaticon.com/128/3536/3536394.png" alt="Facebook Logo" width="20" height="20">
+        <span>Liked us on Facebook</span>
+      </a>
+    </li>
+    <li style="display:flex; align-items:center; gap:8px; margin:6px 0">
+      <a href="https://www.instagram.com/ritwal.cafe/?hl=en" target="_blank" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
+        <img src="https://cdn-icons-png.flaticon.com/128/15713/15713420.png" alt="Instagram Logo" width="20" height="20">
+        <span>Follow us on Instagram</span>
+      </a>
+    </li>
+  </ul>
+</div>
+  </div>
+
+  <div class="big-watermark">Ritwal</div>
+</footer>
+
+
+  <script src="scripts.js"></script>
+  <audio id="bg-audio" loop>
+    <source src="bgm/cozy.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <button id="music-toggle-btn" class="floating-music-btn" aria-label="Toggle Background Music">
+    <img src="logo/off.svg" alt="Music Off" class="icon-music-off" />
+    <img src="logo/on.svg" alt="Music On" class="icon-music-on" />
+  </button>
+
+  <script>
+  (function makeMusicBtnDraggable() {
+  const btn = document.getElementById('music-toggle-btn');
+  if (!btn) return;
+
+  let dragging = false;
+  let startX = 0, startY = 0, startLeft = 0, startTop = 0;
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  const beginDrag = (clientX, clientY) => {
+    const rect = btn.getBoundingClientRect();
+    dragging = true;
+    btn.classList.add('dragging');
+
+    startX = clientX;
+    startY = clientY;
+    startLeft = rect.left;
+    startTop = rect.top;
+
+    // Switch to top/left so we can move freely
+    btn.style.left = `${startLeft}px`;
+    btn.style.top = `${startTop}px`;
+    btn.style.right = 'auto';
+    btn.style.bottom = 'auto';
+    btn.style.position = 'fixed';
+  };
+
+  const onMove = (clientX, clientY) => {
+    if (!dragging) return;
+    const dx = clientX - startX;
+    const dy = clientY - startY;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const bw = btn.offsetWidth;
+    const bh = btn.offsetHeight;
+
+    const newLeft = clamp(startLeft + dx, 8, vw - bw - 8);
+    const newTop  = clamp(startTop  + dy, 8, vh - bh - 8);
+
+    btn.style.left = `${newLeft}px`;
+    btn.style.top  = `${newTop}px`;
+  };
+
+  const endDrag = () => {
+    dragging = false;
+    btn.classList.remove('dragging');
+  };
+
+  // Mouse
+  btn.addEventListener('mousedown', (e) => {
+    // ignore right-clicks
+    if (e.button !== 0) return;
+    beginDrag(e.clientX, e.clientY);
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+  document.addEventListener('mouseup', endDrag);
+
+  // Touch
+  btn.addEventListener('touchstart', (e) => {
+    const t = e.touches[0];
+    beginDrag(t.clientX, t.clientY);
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    onMove(t.clientX, t.clientY);
+  }, { passive: true });
+
+  document.addEventListener('touchend', endDrag);
+})();
+    // Wait for the DOM to be fully loaded before running the script
+    document.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('bg-audio');
+      const musicBtn = document.getElementById('music-toggle-btn');
+
+      // Check if the audio and button elements exist
+      if (audio && musicBtn) {
+        // Add a click event listener to the button
+        musicBtn.addEventListener('click', () => {
+          // Check if the audio is currently paused
+          if (audio.paused) {
+            audio.play();
+            // Add 'playing' class to show the 'On' icon
+            musicBtn.classList.add('playing');
+            musicBtn.setAttribute('aria-label', 'Pause Background Music');
+          } else {
+            audio.pause();
+            // Remove 'playing' class to show the 'Off' icon
+            musicBtn.classList.remove('playing');
+            musicBtn.setAttribute('aria-label', 'Play Background Music');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+

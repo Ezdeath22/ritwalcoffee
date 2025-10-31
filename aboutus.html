@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Ritwal — Ritwal Coffee</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Custom styles for the About Us page -->
+  <style>
+    /* Style for the team section */
+    .team-section {
+      background: var(--beige);
+      padding: 46px 20px;
+      border-top: 4px solid var(--black);
+    }
+
+    .team-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .team-inner h2 {
+      font-family: 'Abril Fatface', serif;
+      font-size: 36px;
+      margin: 0 0 28px;
+    }
+
+    /* --- Team Grid Layout --- */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      transition: all 0.5s ease;
+    }
+    
+    @media (max-width: 768px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* --- Team Member Card --- */
+    .team-member {
+      background: var(--mint);
+      padding: 24px;
+      border-radius: 18px;
+      border: 4px solid var(--black);
+      text-align: center;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden; /* Important for the animation */
+      height: 400px; /* Give a fixed height for consistent animation */
+    }
+
+    .team-member:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* --- Introduce (Default) View --- */
+    .team-member-introduce {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .team-member-introduce img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 12px;
+      border: 3px solid var(--black);
+      margin-bottom: 16px;
+    }
+
+    .team-member-introduce p {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* --- Detail (Clicked) View --- */
+    .team-member-detail {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      display: flex;
+      gap: 20px;
+      padding: 24px;
+      transition: opacity 0.5s 0.2s ease; /* Delay opacity */
+      text-align: left;
+    }
+
+    .team-member-detail img {
+      width: 40%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 12px;
+      border: 3px solid var(--black);
+      flex-shrink: 0;
+    }
+
+    .team-member-detail .detail-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-member-detail .detail-name {
+      font-family: 'Abril Fatface', serif;
+      font-size: 28px;
+      margin: 0 0 10px;
+    }
+
+    .team-member-detail .detail-desc {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 0;
+      flex-grow: 1; /* Pushes button to bottom */
+    }
+
+    /* Inline Back button (from styles.css) */
+    .back-inline-btn {
+      width: 100%;
+      padding: 12px 18px;
+      font-weight: 700;
+      background: #fff;
+      border: 2px solid var(--black);
+      border-radius: 16px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    /* --- Animation State --- */
+    
+    /* 1. When grid is active, fade/shrink other items */
+    .team-grid.show-detail .team-member {
+      opacity: 0.3;
+      transform: scale(0.9);
+      pointer-events: none;
+    }
+
+    /* 2. The active item expands */
+    .team-grid.show-detail .team-member.active {
+      opacity: 1;
+      transform: scale(1);
+      grid-column: 1 / -1; /* Span full width */
+      pointer-events: auto;
+      cursor: default;
+      height: 400px; /* Maintain height */
+    }
+
+    /* 3. Hide 'introduce' content in active card */
+    .team-member.active .team-member-introduce {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.9);
+    }
+
+    /* 4. Show 'detail' content in active card */
+    .team-member.active .team-member-detail {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* --- Audio Player --- */
+    .audio-player {
+      margin-top: 16px;
+    }
+    
+    .audio-toggle-btn {
+      background: var(--beige);
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .audio-toggle-btn:hover {
+      background: #fff;
+      transform: scale(1.1);
+    }
+    .audio-toggle-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--black);
+    }
+    .audio-toggle-btn .icon-audio-on { display: none; }
+    .audio-toggle-btn.playing .icon-audio-off { display: none; }
+    .audio-toggle-btn.playing .icon-audio-on { display: block; }
+    .team-member-audio {
+      display: none; /* Hide the default HTML5 player */
+    }
+
+
+    /* --- Responsive for Detail View --- */
+    @media (max-width: 600px) {
+      .team-grid.show-detail .team-member.active {
+        height: auto; /* Allow height to grow on mobile */
+      }
+      .team-member-detail {
+        flex-direction: column;
+      }
+      .team-member-detail img {
+        width: 100%;
+        height: 250px; /* Fixed height for mobile */
+      }
+      .team-member-detail .detail-content {
+        width: 100%;
+      }
+      .team-member-detail .detail-name {
+        font-size: 24px;
+        text-align: center;
+      }
+      .team-member-detail .detail-desc {
+        text-align: center;
+      }
+      .audio-player {
+        text-align: center;
+      }
+    }
+
+
+    /* Simplified hero for about page */
+    header.hero-simple {
+      padding: 40px 20px 30px; 
+      text-align: center; 
+      position: relative;
+      background: var(--mint); /* Match body bg */
+    }
+    .hero-simple .logo-wrap { width: 86px; height: 86px; }
+    .hero-simple .logo-img { width: 100px; height: 100px; animation: none; }
+    .hero-simple h1.brand { font-size: 64px; margin: 10px 0 0; }
+    .about-card { text-align: left; }
+
+  </style>
+</head>
+<body>
+  <div class="topbar"><small>Ritwal.cafe</small></div>
+
+  <!-- Simplified Header for About Page -->
+  <header class="hero-simple">
+    <div class="hero-inner">
+      <a href="Index.html" title="Back to Home" style="text-decoration: none; color: inherit;">
+        <div class="logo-wrap" aria-hidden="true">
+          <center>
+          <img src="logo/ritwallogo.png" alt="Ritwal Coffee Logo" class="logo-img" />
+          </center>
+        </div>
+        <h1 class="brand">Ritwal</h1>
+      </a>
+    </div>
+  </header>
+
+  <div class="thick-sep" aria-hidden="true"></div>
+
+  <!-- About Story Section -->
+  <section class="about animate-on-scroll" style="max-width: 900px; grid-template-columns: 1fr; padding-top: 50px; padding-bottom: 50px;">
+    <div class="about-card">
+      <h2 style="font-family:'Abril Fatface',serif; font-size:36px; margin:0 0 18px; text-align: center;">The Ritwal Story</h2>
+      <p style="font-size: 1.1rem; line-height: 1.6;">
+        Ritwal Coffee began with a simple idea: to create a space where students and faculty could find a moment of peace and a great cup of coffee. Born within the vibrant community of the University of St. La Salle, we quickly grew from just a café into a cherished daily "Ritwal."
+      </p>
+      <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 16px;">
+        Our mission is to serve more than just coffee. We serve comfort, energy, and a reliable smile. We believe that the simple act of grabbing a coffee can be the start of something truly great—a productive study session, a new friendship, or a brilliant idea. We are proud to be a part of your daily life, providing affordable, high-quality, and locally-sourced brews with the speedy service you count on.
+      </p>
+    </div>
+  </section>
+
+  <!-- Meet the Team Section -->
+  <section class="team-section animate-on-scroll" id="team">
+    <div class="team-inner">
+      <h2>Meet The Team</h2>
+      <p class="lead" style="max-width: 600px; margin: 0 auto 32px;">The passionate individuals who built this website and keep the Ritwal spirit alive.</p>
+      
+      <!-- New Team Grid Structure -->
+      <div class="team-grid" id="team-grid">
+        
+        <!-- Team Member 1 -->
+        <div class="team-member animate-on-scroll" role="button" tabindex="0">
+          <div class="team-member-introduce">
+            <img src="members/gab.jpg" alt="Team member Gabriel Gyles Sajo">
+            <p>Gabriel Gyles Sajo</p>
+          </div>
+          <div class="team-member-detail">
+            <img src="members/gab.jpg" alt="Team member Gabriel Gyles Sajo">
+            <div class="detail-content">
+              <h3 class="detail-name">Gabriel Gyles Sajo</h3>
+              <p class="detail-desc">"Come visit us and buy your favorite Ritwal Coffee! Your support keeps our passion brewing and our community strong."</p>
+              <div class="audio-player">
+                <button class="audio-toggle-btn" aria-label="Play audio">
+                  <svg class="icon-audio-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                  <svg class="icon-audio-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+              </div>
+              <button class="back-inline-btn">Back</button>
+            </div>
+            <audio class="team-member-audio" src="voice/gab.mp3" preload="none"></audio>
+          </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="team-member animate-on-scroll" style="transition-delay: 0.1s;" role="button" tabindex="0">
+          <div class="team-member-introduce">
+            <img src="members/bai.jpg" alt="Team member Hanz Justin Deocampo">
+            <p>Hanz Justin Deocampo</p>
+          </div>
+          <div class="team-member-detail">
+            <img src="members/bai.jpg" alt="Team member Hanz Justin Deocampo">
+            <div class="detail-content">
+              <h3 class="detail-name">Hanz Justin Deocampo</h3>
+              <p class="detail-desc">"Craving your favorite brew but short on time? Order now through GrabFood for a speedy and convenient Ritwal fix!"</p>
+              <div class="audio-player">
+                <button class="audio-toggle-btn" aria-label="Play audio">
+                  <svg class="icon-audio-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                  <svg class="icon-audio-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+              </div>
+              <button class="back-inline-btn">Back</button>
+            </div>
+            <audio class="team-member-audio" src="voice/hanz.mp3" preload="none"></audio>
+          </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="team-member animate-on-scroll" style="transition-delay: 0.2s;" role="button" tabindex="0">
+          <div class="team-member-introduce">
+            <img src="members/chester.jpg" alt="Team member Jann Chester Serfino">
+            <p>Jann Chester Serfino</p>
+          </div>
+          <div class="team-member-detail">
+            <img src="members/chester.jpg" alt="Team member Jann Chester Serfino">
+            <div class="detail-content">
+              <h3 class="detail-name">Jann Chester Serfino</h3>
+              <p class="detail-desc">"We believe our coffee is worth sharing! Promoting Ritwal is all about bringing our community together, one great cup at a time."</p>
+              <div class="audio-player">
+                <button class="audio-toggle-btn" aria-label="Play audio">
+                  <svg class="icon-audio-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                  <svg class="icon-audio-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+              </div>
+              <button class="back-inline-btn">Back</button>
+            </div>
+            <audio class="team-member-audio" src="voice/chester.mp3" preload="none"></audio>
+          </div>
+        </div>
+
+        <!-- Team Member 4 -->
+        <div class="team-member animate-on-scroll" style="transition-delay: 0.3s;" role="button" tabindex="0">
+          <div class="team-member-introduce">
+            <img src="members/jm.jpg" alt="Team member JM Aposaga">
+            <p>JM Aposaga</p>
+          </div>
+          <div class="team-member-detail">
+            <img src="members/jm.jpg" alt="Team member JM Aposaga">
+            <div class="detail-content">
+              <h3 class="detail-name">JM Aposaga</h3>
+              <p class="detail-desc">"Big news - Ritwal Coffee is now online! We're so excited that our new website makes it easier than ever to explore our menu."</p>
+              <div class="audio-player">
+                <button class="audio-toggle-btn" aria-label="Play audio">
+                  <svg class="icon-audio-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                  <svg class="icon-audio-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+              </div>
+              <button class="back-inline-btn">Back</button>
+            </div>
+            <audio class="team-member-audio" src="voice/jm.mp3" preload="none"></audio>
+          </div>
+        </div>
+
+        <!-- Team Member 5 -->
+        <div class="team-member animate-on-scroll" style="transition-delay: 0.4s;" role="button" tabindex="0">
+          <div class="team-member-introduce">
+            <img src="members/klyde.jpg" alt="Team member John Klyde Valenzuela">
+            <p>John Klyde Valenzuela</p>
+          </div>
+          <div class="team-member-detail">
+            <img src="members/klyde.jpg" alt="Team member John Klyde Valenzuela">
+            <div class="detail-content">
+              <h3 class="detail-name">John Klyde Valenzuela</h3>
+              <p class="detail-desc">"Our goal was to bring the Ritwal experience to your screen. We've done our best to capture the essence of our café in this website."</p>
+              <div class="audio-player">
+                <button class="audio-toggle-btn" aria-label="Play audio">
+                  <svg class="icon-audio-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                  <svg class="icon-audio-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+              </div>
+              <button class="back-inline-btn">Back</button>
+            </div>
+            <audio class="team-member-audio" src="voice/klyde.mp3" preload="none"></audio>
+          </div>
+        </div>
+
+        <!-- Team Member 6 -->
+        <div class="team-member animate-on-scroll" style="transition-delay: 0.5s;" role="button" tabindex="0">
+          <div class="team-member-introduce">
+            <img src="members/nungjow.jpg" alt="Team member Given Joie Sambon">
+            <p>Given Joie Sambon</p>
+          </div>
+          <div class="team-member-detail">
+            <img src="members/nungjow.jpg" alt="Team member Given Joie Sambon">
+            <div class="detail-content">
+              <h3 class="detail-name">Given Joie Sambon</h3>
+              <p class="detail-desc">"As a regular, I know this website is a game-changer! It makes exploring and ordering our favorite Ritwal products so much easier for everyone."</p>
+              <div class="audio-player">
+                <button class="audio-toggle-btn" aria-label="Play audio">
+                  <svg class="icon-audio-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                  <svg class="icon-audio-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+              </div>
+              <button class="back-inline-btn">Back</button>
+            </div>
+            <audio class="team-member-audio" src="voice/jow.mp3" preload="none"></audio>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="brand-block">
+        <h4>Life Begins After Coffee</h4>
+        <p style="margin:6px 0">09663966205<br />ritwalcoffee@gmail.com</p>
+      </div>
+
+      <nav class="footer-nav">
+        <h5 style="margin:0 0 8px">Main</h5>
+        <ul>
+          <!-- Link to home page -->
+          <li><a href="Index.html" style="text-decoration: none; color: var(--black);">Home</a></li>
+          <!-- This is the current page -->
+          <li style="font-weight: 700;">About Us</li>
+        </ul>
+      </nav>
+
+     <div class="social-links">
+    <h5 style="margin:0 0 8px">Connect With Us</h5>
+    <ul style="list-style:none; padding:0; margin:0">
+      <li style="display:flex; align-items:center; gap:8px; margin:6px 0">
+        <a href="https://www.facebook.com/ritwal.cafe/" target="_blank" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
+          <img src="https://cdn-icons-png.flaticon.com/128/3536/3536394.png" alt="Facebook Logo" width="20" height="20">
+          <span>Liked us on Facebook</span>
+        </a>
+      </li>
+      <li style="display:flex; align-items:center; gap:8px; margin:6px 0">
+        <a href="https://www.instagram.com/ritwal.cafe/?hl=en" target="_blank" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
+          <img src="https://cdn-icons-png.flaticon.com/128/15713/15713420.png" alt="Instagram Logo" width="20" height="20">
+          <span>Follow us on Instagram</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+    </div>
+
+    <div class="big-watermark">Ritwal</div>
+  </footer>
+
+  <!-- (REMOVED old modal HTML) -->
+
+  <!-- Music Player (Copied from Index) -->
+  <audio id="bg-audio" loop>
+M   <source src="bgm/cozy.mp3" type="audio/mpeg" />
+  	Your browser does not support the audio element.
+  </audio>
+
+  <button id="music-toggle-btn" class="floating-music-btn" aria-label="Toggle Background Music">
+  	<img src="logo/off.svg" alt="Music Off" class="icon-music-off" />
+  	<img src="logo/on.svg" alt="Music On" class="icon-music-on" />
+  </button>
+
+  <!-- Script for Animations and Music Player -->
+  <script>
+    // --- On Load ---
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll-in animations
+      const animated = document.querySelectorAll('.animate-on-scroll');
+      if (animated.length) {
+        const obs = new IntersectionObserver(
+          entries => entries.forEach(e => {
+            if (e.isIntersecting) { 
+              e.target.classList.add('is-visible'); 
+              // obs.unobserve(e.target); 
+            }
+          }), { threshold: 0.1 }
+        );
+        animated.forEach(el => obs.observe(el));
+      }
+
+      // Music Player Logic
+      const audio = document.getElementById('bg-audio');
+      const musicBtn = document.getElementById('music-toggle-btn');
+      if (audio && musicBtn) {
+      	musicBtn.addEventListener('click', () => {
+        	if (audio.paused) {
+          	audio.play();
+            musicBtn.classList.add('playing');
+          	musicBtn.setAttribute('aria-label', 'Pause Background Music');
+        	} else {
+  	      	audio.pause();
+          	musicBtn.classList.remove('playing');
+          	musicBtn.setAttribute('aria-label', 'Play Background Music');
+        	}
+      	});
+  	  }
+
+      // --- New Team Detail Logic ---
+      const teamGrid = document.getElementById('team-grid');
+      const teamMembers = document.querySelectorAll('.team-member');
+      const allAudioPlayers = document.querySelectorAll('.team-member-audio');
+      const allAudioBtns = document.querySelectorAll('.audio-toggle-btn');
+
+      // Function to stop all other team member audio
+      function stopAllOtherAudio(currentAudio) {
+        allAudioPlayers.forEach(audio => {
+          if (audio !== currentAudio) {
+            audio.pause();
+            audio.currentTime = 0;
+          }
+        });
+        allAudioBtns.forEach(btn => {
+          // Check if the button belongs to a different member
+          if (!btn.closest('.team-member-detail').contains(currentAudio)) {
+             btn.classList.remove('playing');
+             const offIcon = btn.querySelector('.icon-audio-off');
+             const onIcon = btn.querySelector('.icon-audio-on');
+             if (offIcon) offIcon.style.display = 'block';
+             if (onIcon) onIcon.style.display = 'none';
+          }
+        });
+      }
+
+      if (teamGrid) {
+        teamMembers.forEach(member => {
+          const introduce = member.querySelector('.team-member-introduce');
+          const backBtn = member.querySelector('.back-inline-btn');
+          const audioBtn = member.querySelector('.audio-toggle-btn');
+          const audioEl = member.querySelector('.team-member-audio');
+          const offIcon = audioBtn.querySelector('.icon-audio-off');
+          const onIcon = audioBtn.querySelector('.icon-audio-on');
+
+          // --- Open Detail View ---
+          introduce.addEventListener('click', () => {
+            // Check if already active
+            if (member.classList.contains('active')) return;
+
+            // Close any other active member first
+            const currentlyActive = document.querySelector('.team-member.active');
+            if(currentlyActive) {
+                currentlyActive.classList.remove('active');
+                // Stop audio of previously active card
+                const oldAudio = currentlyActive.querySelector('.team-member-audio');
+                const oldAudioBtn = currentlyActive.querySelector('.audio-toggle-btn');
+                const oldOffIcon = oldAudioBtn.querySelector('.icon-audio-off');
+                const oldOnIcon = oldAudioBtn.querySelector('.icon-audio-on');
+                oldAudio.pause();
+                oldAudio.currentTime = 0;
+                oldAudioBtn.classList.remove('playing');
+                if (oldOffIcon) oldOffIcon.style.display = 'block';
+                if (oldOnIcon) oldOnIcon.style.display = 'none';
+            }
+
+            teamGrid.classList.add('show-detail');
+            member.classList.add('active');
+            
+            // Scroll to the member
+            member.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          // --- Close Detail View ---
+          backBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click
+            teamGrid.classList.remove('show-detail');
+            member.classList.remove('active');
+            
+            // Stop and reset audio
+            audioEl.pause();
+            audioEl.currentTime = 0;
+            audioBtn.classList.remove('playing');
+            if (offIcon) offIcon.style.display = 'block';
+            if (onIcon) onIcon.style.display = 'none';
+          });
+
+          // --- Audio Player Logic ---
+          audioBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click
+            if (audioEl.paused) {
+              stopAllOtherAudio(audioEl); // Stop others
+              audioEl.play();
+              audioBtn.classList.add('playing');
+              if (offIcon) offIcon.style.display = 'none';
+              if (onIcon) onIcon.style.display = 'block';
+            } else {
+              audioEl.pause();
+              audioBtn.classList.remove('playing');
+              if (offIcon) offIcon.style.display = 'block';
+              if (onIcon) onIcon.style.display = 'none';
+            }
+          });
+
+          // Reset button when audio finishes
+          audioEl.addEventListener('ended', () => {
+            audioBtn.classList.remove('playing');
+            if (offIcon) offIcon.style.display = 'block';
+            if (onIcon) onIcon.style.display = 'none';
+          });
+
+        });
+      }
+    });
+    
+    // Draggable Music Button Logic
+    (function makeMusicBtnDraggable() {
+      const btn = document.getElementById('music-toggle-btn');
+      if (!btn) return;
+      let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
+      const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+      const beginDrag = (clientX, clientY) => {
+        const rect = btn.getBoundingClientRect();
+        dragging = true;
+        btn.classList.add('dragging');
+        startX = clientX;
+        startY = clientY;
+        startLeft = rect.left;
+        startTop = rect.top;
+        btn.style.left = `${startLeft}px`;
+        btn.style.top = `${startTop}px`;
+        btn.style.right = 'auto';
+        btn.style.bottom = 'auto';
+        btn.style.position = 'fixed';
+      };
+      const onMove = (clientX, clientY) => {
+        if (!dragging) return;
+        const dx = clientX - startX, dy = clientY - startY;
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const bw = btn.offsetWidth, bh = btn.offsetHeight;
+        const newLeft = clamp(startLeft + dx, 8, vw - bw - 8);
+        const newTop  = clamp(startTop  + dy, 8, vh - bh - 8);
+        btn.style.left = `${newLeft}px`;
+        btn.style.top  = `${newTop}px`;
+      };
+      const endDrag = () => {
+        dragging = false;
+        btn.classList.remove('dragging');
+      };
+      btn.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        beginDrag(e.clientX, e.clientY);
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+      document.addEventListener('mouseup', endDrag);
+      btn.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        beginDrag(t.clientX, t.clientY);
+      }, { passive: true });
+      document.addEventListener('touchmove', (e) => {
+        const t = e.touches[0];
+        onMove(t.clientX, t.clientY);
+      }, { passive: true });
+      document.addEventListener('touchend', endDrag);
+    })();
+  </script>
+</body>
+</html>
+
